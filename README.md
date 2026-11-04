@@ -5,13 +5,14 @@
 Universidad Manuela Beltrán
 Facultad de Ingeniería, Programa de Ingeniería de Software
 Asignatura: Diseño de Interfaces
-Docente: Juan José Osorio Tabares
+Docente: Jamilton Fernando Benavides
 Año: 2026
 
 **Integrantes**
 
 - David Santiago Cárdenas Perilla — davidcardenas.sp@academia.umb.edu.co
 - Juan Pablo Rojas Fernández — pablorojas.jf@academia.umb.edu.co
+- Sebastian Perez Triana — sebastianperez.t@academia.umb.edu.co
 
 ---
 
