@@ -4,7 +4,7 @@
 
 Universidad Manuela Beltrán
 Facultad de Ingeniería, Programa de Ingeniería de Software
-Asignatura: Diseño de Interfaces
+Asignatura: Sistemas Operativos
 Docente: Jamilton Fernando Benavides
 Año: 2026
 
