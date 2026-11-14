@@ -1,0 +1,22 @@
+=== SOLLNTEL - REPORTE DE CONSUMO (DATOS SIMULADOS) ===
+Dias analizados: 31
+Consumo total: 77.49 kWh
+Promedio diario: 2.50 kWh
+Costo estimado: $69,737 COP (tarifa 900 COP/kWh)
+
+Consumo por dispositivo:
+  - nevera          25.91 kWh  ( 33.4%)
+  - iluminacion     11.69 kWh  ( 15.1%)
+  - microondas      10.93 kWh  ( 14.1%)
+  - computador      10.76 kWh  ( 13.9%)
+  - televisor        6.68 kWh  (  8.6%)
+  - lavadora         5.02 kWh  (  6.5%)
+  - plancha          3.78 kWh  (  4.9%)
+  - cargadores       2.72 kWh  (  3.5%)
+
+Recomendaciones de ahorro:
+  1. La nevera pesa 33.4% del consumo: revisar sellos y temperatura.
+  2. La iluminacion pesa 15.1% del consumo: cambiar a LED y apagar zonas sin uso.
+  3. El microondas pesa 14.1% del consumo: usarlo solo para porciones necesarias.
+  4. Hora de mayor consumo: 19:00. Mover cargas flexibles a otras horas.
+  5. Desconectar cargadores y equipos en espera cuando no se usen.
