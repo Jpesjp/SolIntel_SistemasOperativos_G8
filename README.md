@@ -254,5 +254,65 @@ Formato: `tipo(módulo): descripción`
 - Meta Platforms. (s. f.). *React documentation*. https://react.dev
 - Figma. (s. f.). *Figma help center*. https://help.figma.com
 
+## Fase II: Avance funcional (proyecto simulado)
 
+En esta fase se implementó la solución planteada en la Fase I como un **proyecto simulado**: los datos de consumo de los dispositivos (IoT) los genera un programa, sin hardware real.
+
+### Componentes implementados
+
+| Componente | Archivo | Función |
+|---|---|---|
+| Generador de datos simulados | `src/generador_datos.py` | Simula el consumo por hora de 8 dispositivos del hogar y lo guarda en `data/consumo_simulado.csv` |
+| Analizador y recomendaciones | `src/analizador.py` | Calcula consumo total, promedio diario, costo estimado y consumo por dispositivo; genera recomendaciones de ahorro (motor de reglas) en `data/reporte.txt` |
+| Dashboard web | `src/generar_web.py` | Genera `web/index.html` con indicadores, gráfico de distribución, consumo por dispositivo y por hora |
+
+### Entorno de trabajo
+- Sistema operativo: Windows 10/11
+- Lenguaje: Python 3.13 (solo librerías estándar, sin dependencias externas)
+- Control de versiones: Git y GitHub
+- Editor: Visual Studio Code
+
+### Estructura del repositorio
+```
+SolIntel_SistemasOperativos_G8/
+├── src/
+│   ├── generador_datos.py
+│   ├── analizador.py
+│   └── generar_web.py
+├── data/
+│   ├── consumo_simulado.csv
+│   └── reporte.txt
+├── web/
+│   └── index.html
+├── Evidencias/
+│   ├── ejecucion_fase2.JPG
+│   └── dashboard_web.png
+└── README.md
+```
+
+### Cómo ejecutar
+```
+python src/generador_datos.py --dias 30 --salida data/consumo_simulado.csv
+python src/analizador.py
+python src/generar_web.py
+```
+Después se abre `web/index.html` en el navegador.
+
+### Pruebas de funcionamiento
+
+| # | Prueba | Resultado esperado | Resultado obtenido | Evidencia |
+|---|---|---|---|---|
+| 1 | Generar 30 días de datos simulados | Se crea `data/consumo_simulado.csv` y se muestra el consumo total | Archivo generado, 77.49 kWh en 30 días | `Evidencias/ejecucion_fase2.JPG` |
+| 2 | Ejecutar el analizador sobre el CSV | Reporte con consumo por dispositivo y recomendaciones | Reporte con 8 dispositivos (nevera 33.4 %) y 5 recomendaciones; se guarda en `data/reporte.txt` | `Evidencias/ejecucion_fase2.JPG` |
+| 3 | Generar el dashboard web | Se crea `web/index.html` con gráficos | Dashboard con indicadores, gráfico circular y consumo por hora | `Evidencias/dashboard_web.png` |
+| 4 | Repetir con la misma semilla | Mismos resultados | Se obtienen los mismos valores (semilla 42) | Terminal |
+
+### Resultados obtenidos
+- Consumo total simulado: 77.49 kWh en 30 días (promedio diario 2.50 kWh).
+- Costo estimado: $69,737 COP (tarifa de referencia de 900 COP/kWh).
+- Dispositivo de mayor consumo: nevera (33.4 %). Hora de mayor consumo: 19:00.
+
+
+### Registro de avances
+El historial de commits del repositorio documenta el avance de esta fase.
 
