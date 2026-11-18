@@ -1,0 +1,43 @@
+# Publica la version estatica de SolIntel en GitHub Pages.
+# Activar una vez: Settings > Pages > Build and deployment > Source: GitHub Actions
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 11 * * *"   # regenera los datos simulados todos los dias (6:17 a.m. Bogota)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Pruebas automaticas
+        run: python -m unittest discover -s tests -v
+      - name: Generar sitio estatico
+        env:
+          TZ: America/Bogota
+        run: python scripts/exportar_estatico.py --salida site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: despliegue
+        uses: actions/deploy-pages@v4

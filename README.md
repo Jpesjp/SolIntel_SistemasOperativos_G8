@@ -401,6 +401,11 @@ El instalador crea el usuario de sistema `solintel` y el grupo `solintel-admin`,
 docker compose up -d
 ```
 
+**Opción 4 – Demo en línea (GitHub Pages)**
+
+Versión estática: https://jpesjp.github.io/SolIntel_SistemasOperativos_G8/ (cuenta demo `demo@solintel.co` / `Solintel2026`).
+GitHub Pages no ejecuta Python, por eso el flujo `.github/workflows/pages.yml` corre las pruebas, levanta el servidor, guarda las respuestas de la API (`scripts/exportar_estatico.py`) y publica el frontend con esos datos. Se regenera en cada push y todos los días. En esta versión el registro de cuentas no está disponible y los cambios (dispositivos, plan) se guardan solo en el navegador; la versión completa es la de las opciones 1–3.
+
 **Operación diaria**
 
 | Tarea | Linux | Windows |

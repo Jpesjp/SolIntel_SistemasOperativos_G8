@@ -24,12 +24,49 @@ function toast(msg) {
 }
 
 async function api(ruta, opciones = {}) {
+  if (ESTATICO) return apiEstatica(ruta, opciones);
   const r = await fetch("/api/" + ruta, { ...opciones, headers: { "Content-Type": "application/json",
     Authorization: "Bearer " + (token.get() || ""), ...(opciones.headers || {}) } });
   const datos = await r.json().catch(() => ({}));
   if (r.status === 401 && !ruta.startsWith("login")) { token.set(null); location.hash = "#/login"; throw new Error("Sesión expirada"); }
   if (!r.ok) throw new Error(datos.error || "Error de conexión");
   return datos;
+}
+
+/* ---------------- modo demo estático (GitHub Pages) ----------------
+   GitHub Pages no ejecuta Python: se usan las respuestas de la API generadas por
+   scripts/exportar_estatico.py (demo/datos.json). Los cambios se guardan solo en este navegador. */
+const ESTATICO = location.hostname.endsWith("github.io") || new URLSearchParams(location.search).has("estatico");
+let demo = null;
+async function apiEstatica(ruta, { method = "GET", body } = {}) {
+  if (!demo) {
+    demo = await (await fetch("demo/datos.json", { cache: "no-store" })).json();
+    try { Object.assign(demo.respuestas, JSON.parse(localStorage.getItem("solintel_demo") || "{}")); } catch { /* sin almacenamiento */ }
+  }
+  const R = demo.respuestas, cuerpo = body ? JSON.parse(body) : {};
+  const guardar = (...claves) => { try {
+    const prev = JSON.parse(localStorage.getItem("solintel_demo") || "{}");
+    claves.forEach((k) => (prev[k] = R[k])); localStorage.setItem("solintel_demo", JSON.stringify(prev)); } catch { /* sin almacenamiento */ } };
+  if (ruta === "login") {
+    if (cuerpo.correo?.trim().toLowerCase() !== demo.usuario.correo || cuerpo.clave !== demo.usuario.clave)
+      throw new Error(`Versión estática: usa la cuenta demo ${demo.usuario.correo} / ${demo.usuario.clave}`);
+    return { token: "demo-estatica", nombre: R.perfil.nombre, configurado: true };
+  }
+  if (ruta === "registro") throw new Error("El registro necesita el servidor Python. En GitHub Pages usa la cuenta demo.");
+  if (ruta === "logout") return { ok: true };
+  if (method === "PUT" && ruta.startsWith("dispositivos/")) {
+    const d = R.dispositivos.dispositivos.find((x) => x.id === ruta.split("/")[1]);
+    d.estado = cuerpo.estado;
+    d.potencia_actual_w = cuerpo.estado === "apagada" ? 0 : cuerpo.estado === "standby" ? 3 : d.potencia_w;
+    guardar("dispositivos"); return R.dispositivos;
+  }
+  if (method === "PUT" && ruta === "plan") {
+    R.plan.habitos.forEach((h) => (h.hecho = cuerpo.hechos.includes(h.id))); guardar("plan"); return R.plan;
+  }
+  if (method === "PUT" && ruta === "hogar") { Object.assign(R.hogar, cuerpo); guardar("hogar"); return R.hogar; }
+  if (method === "PUT" && ruta === "perfil") { if (cuerpo.nombre) R.perfil.nombre = cuerpo.nombre; guardar("perfil"); return R.perfil; }
+  if (!(ruta in R)) throw new Error("No disponible en la versión estática");
+  return structuredClone(R[ruta]);
 }
 
 /* ---------------- gráficas SVG ---------------- */
@@ -85,7 +122,7 @@ function layout(ruta, titulo, subtitulo, cuerpo, { atras = true } = {}) {
       ${NAV_LATERAL.map(([r, t]) => `<a href="#/${r}" class="${r === ruta ? "activo" : ""}">${t}</a>`).join("")}
       <div class="pie">Datos simulados con fines académicos<br>UMB · Sistemas Operativos · G8</div></nav>
     <main class="principal">
-      <div class="aviso-sim">Datos simulados con fines académicos · no hay sensores ni integración con empresas de energía</div>
+      <div class="aviso-sim">Datos simulados con fines académicos · no hay sensores ni integración con empresas de energía${ESTATICO ? ` · versión estática de GitHub Pages (datos generados ${esc(demo?.generado || "")})` : ""}</div>
       <header class="cabecera">${atras ? `<a class="btn-atras" href="#/dashboard" aria-label="Volver">&lt;</a>` : ""}
         <div class="titulos"><h1>${titulo}</h1><p>${subtitulo}</p></div>
         <a class="avatar" href="#/perfil" title="Perfil">${iniciales(hogar)}</a></header>

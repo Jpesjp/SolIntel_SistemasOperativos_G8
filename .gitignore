@@ -7,3 +7,4 @@ data/locks/
 data/simulador.pid
 respaldos/
 *.tmp
+site/
