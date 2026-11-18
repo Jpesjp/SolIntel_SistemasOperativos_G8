@@ -11,7 +11,11 @@ Integrantes:
 - Juan Pablo Rojas Fernández — pablorojas.jf@academia.umb.edu.co
 - Sebastian Perez Triana — sebastianperez.t@academia.umb.edu.co
 
-Repositorio público en GitHub:(https://github.com/Jpesjp/SolIntel_SistemasOperativos_G8/tree/main)
+Repositorio público en GitHub: https://github.com/Jpesjp/SolIntel_SistemasOperativos_G8
+
+> **Entrega final (Guía 5 – Opción A: Repositorio).** Ver la sección [Entrega final](#entrega-final-solución-implementada): solución, instalación, pruebas, evidencias y resultados. Documento técnico completo: [`docs/documento_tecnico.md`](docs/documento_tecnico.md).
+>
+> **Inicio rápido:** `python src/backend/servidor.py --con-simulador` → abrir http://localhost:8080 → cuenta demo `demo@solintel.co` / `Solintel2026`.
 
 ---
 
@@ -238,10 +242,13 @@ Formato: `tipo(módulo): descripción`
 
 ---
 
-## 6. Estado actual y próximos avances
+## 6. Estado actual
 
-- **Estado actual:** levantamiento de información realizado, diseño de pantallas en Figma, repositorio público creado con la estructura inicial de carpetas, README y documentación.
-- **Próximos avances:** desarrollo del script de simulación de datos, implementación de la API y del frontend, módulo de IA con reglas de recomendación, aplicación de los conceptos de Sistemas Operativos (procesos, planificación y manejo de archivos) y pruebas.
+| Fase | Estado |
+| :--- | :--- |
+| Fase I – Levantamiento, diseño y planeación | Completada |
+| Fase II – Avance funcional (generador, analizador y dashboard estático) | Completada |
+| Fase III – Entrega final (plataforma web, API, IA, servicios del SO, seguridad, pruebas y evidencias) | **Completada** |
 
 ---
 
@@ -262,9 +269,9 @@ En esta fase se implementó la solución planteada en la Fase I como un **proyec
 
 | Componente | Archivo | Función |
 |---|---|---|
-| Generador de datos simulados | `src/generador_datos.py` | Simula el consumo por hora de 8 dispositivos del hogar y lo guarda en `data/consumo_simulado.csv` |
-| Analizador y recomendaciones | `src/analizador.py` | Calcula consumo total, promedio diario, costo estimado y consumo por dispositivo; genera recomendaciones de ahorro (motor de reglas) en `data/reporte.txt` |
-| Dashboard web | `src/generar_web.py` | Genera `web/index.html` con indicadores, gráfico de distribución, consumo por dispositivo y por hora |
+| Generador de datos simulados | `src/simulador/generador_datos.py` | Simula el consumo por hora de 8 dispositivos del hogar y lo guarda en `data/consumo_simulado.csv` |
+| Analizador y recomendaciones | `src/ia/analizador.py` | Calcula consumo total, promedio diario, costo estimado y consumo por dispositivo; genera recomendaciones de ahorro (motor de reglas) en `data/reporte.txt` |
+| Dashboard web | `src/fase2/generar_web.py` | Genera `src/fase2/web/index.html` con indicadores, gráfico de distribución, consumo por dispositivo y por hora |
 
 ### Entorno de trabajo
 - Sistema operativo: Windows 10/11
@@ -274,37 +281,29 @@ En esta fase se implementó la solución planteada en la Fase I como un **proyec
 
 ### Estructura del repositorio
 ```
-SolIntel_SistemasOperativos_G8/
-├── src/
-│   ├── generador_datos.py
-│   ├── analizador.py
-│   └── generar_web.py
-├── data/
-│   ├── consumo_simulado.csv
-│   └── reporte.txt
-├── web/
-│   └── index.html
-├── Evidencias/
-│   ├── ejecucion_fase2.JPG
-│   └── dashboard_web.png
-└── README.md
+(En la entrega final estos archivos se reorganizaron así)
+src/simulador/generador_datos.py
+src/ia/analizador.py
+src/fase2/generar_web.py  ->  src/fase2/web/index.html
+data/consumo_simulado.csv, data/reporte.txt
+evidencias/fase2/
 ```
 
 ### Cómo ejecutar
 ```
-python src/generador_datos.py --dias 30 --salida data/consumo_simulado.csv
-python src/analizador.py
-python src/generar_web.py
+python src/simulador/generador_datos.py --dias 30 --salida data/consumo_simulado.csv
+python src/ia/analizador.py
+python src/fase2/generar_web.py
 ```
-Después se abre `web/index.html` en el navegador.
+Después se abre `src/fase2/web/index.html` en el navegador.
 
 ### Pruebas de funcionamiento
 
 | # | Prueba | Resultado esperado | Resultado obtenido | Evidencia |
 |---|---|---|---|---|
-| 1 | Generar 30 días de datos simulados | Se crea `data/consumo_simulado.csv` y se muestra el consumo total | Archivo generado, 77.49 kWh en 30 días | `Evidencias/ejecucion_fase2.JPG` |
-| 2 | Ejecutar el analizador sobre el CSV | Reporte con consumo por dispositivo y recomendaciones | Reporte con 8 dispositivos (nevera 33.4 %) y 5 recomendaciones; se guarda en `data/reporte.txt` | `Evidencias/ejecucion_fase2.JPG` |
-| 3 | Generar el dashboard web | Se crea `web/index.html` con gráficos | Dashboard con indicadores, gráfico circular y consumo por hora | `Evidencias/dashboard_web.png` |
+| 1 | Generar 30 días de datos simulados | Se crea `data/consumo_simulado.csv` y se muestra el consumo total | Archivo generado, 77.49 kWh en 30 días | `evidencias/fase2/ejecucion_fase2.JPG` |
+| 2 | Ejecutar el analizador sobre el CSV | Reporte con consumo por dispositivo y recomendaciones | Reporte con 8 dispositivos (nevera 33.4 %) y 5 recomendaciones; se guarda en `data/reporte.txt` | `evidencias/fase2/ejecucion_fase2.JPG` |
+| 3 | Generar el dashboard web | Se crea `web/index.html` con gráficos | Dashboard con indicadores, gráfico circular y consumo por hora | `evidencias/fase2/dashboard_web.JPG` |
 | 4 | Repetir con la misma semilla | Mismos resultados | Se obtienen los mismos valores (semilla 42) | Terminal |
 
 ### Resultados obtenidos
@@ -316,3 +315,158 @@ Después se abre `web/index.html` en el navegador.
 ### Registro de avances
 El historial de commits del repositorio documenta el avance de esta fase.
 
+---
+
+## Entrega final: solución implementada
+
+La versión final integra las fases anteriores (generador y analizador de la Fase II) en una **plataforma web completa** que corre como **servicio de Linux** administrado, con las **11 pantallas del prototipo en Figma**.
+
+### Componentes
+
+| Componente | Archivo | Función | Concepto de SO |
+| :--- | :--- | :--- | :--- |
+| Frontend web | `src/frontend/` | SPA responsive (HTML, CSS y JS sin dependencias) con las pantallas 00–10 | — |
+| API backend | `src/backend/servidor.py` | 15 endpoints REST, archivos estáticos, monitoreo `/api/sistema` | Hilos (`ThreadingHTTPServer`), proceso hijo, señales |
+| Seguridad | `src/backend/seguridad.py` | PBKDF2, sesiones con expiración, bloqueo por fuerza bruta | Seguridad y usuarios |
+| Almacenamiento | `src/backend/almacen.py` | JSON/CSV por hogar, escritura atómica, permisos 600 | Sistema de archivos, exclusión mutua entre procesos (`flock`) |
+| Simulador IoT | `src/simulador/simulador_iot.py` | Proceso independiente: completa el historial por hora y la lectura en vivo cada 30 s; respeta el estado de los dispositivos | Procesos, planificación, E/S, PID |
+| Módulo IA | `src/ia/motor_ia.py` | Reglas (alertas y recomendaciones con ahorro en COP) y regresión lineal (proyección del mes) | Gestión de memoria (caché en RAM) |
+| Servicios | `config/systemd/` | `solintel-web` y `solintel-simulador` con endurecimiento | Servicios, límites de CPU y memoria |
+| Automatización | `scripts/linux/`, `scripts/windows/` | Instalar, iniciar, detener, monitorear, respaldar y probar (Bash y PowerShell) | Automatización |
+| Configuración del SO | `config/cron`, `config/logrotate`, `config/firewall` | Tareas programadas, rotación de logs, UFW / Firewall de Windows | Planificación, seguridad |
+
+### Pantallas (Figma → web)
+
+| # | Pantalla | Ruta | Qué hace |
+| :--- | :--- | :--- | :--- |
+| 00 | Inicio | `#/inicio` | Presentación del producto |
+| 01 | Login / Registro | `#/login`, `#/registro` | Crear cuenta e iniciar sesión (RF01) |
+| 02 | Configuración residencial | `#/configuracion` | Vivienda, factura, meta de ahorro y prioridades |
+| 03 | Dashboard | `#/dashboard` | Consumo 24 h, costo, meta, ahorro IA, tendencia, potencia en vivo, proyección (RF02) |
+| 04 | Consumo por periodo | `#/consumo` | Día, semana, mes y año; pico, promedio, rango normal y aporte por dispositivo (RF03) |
+| 05 | Control de dispositivos | `#/dispositivos` | Encender, apagar o poner en standby (simulado) (RF04, RF08) |
+| 06 | Alertas inteligentes | `#/alertas` | Riesgo nocturno, dispositivo crítico, hábitos, standby, anomalías, meta (RF05) |
+| 07 | Recomendaciones IA | `#/recomendaciones` | Acciones con ahorro estimado en COP/mes (RF06) |
+| 08 | Reportes históricos | `#/reportes` | Mensual, trimestral y anual; exportar CSV e imprimir/PDF (RF07) |
+| 09 | Plan de ahorro | `#/plan` | Meta personalizada, avance y lista de hábitos |
+| 10 | Perfil y ajustes | `#/perfil` | Cuenta, cambio de clave, hogar y **estado del sistema** (PID, hilos, memoria, carga, disco, simulador) |
+
+| Escritorio | Móvil |
+| :---: | :---: |
+| ![Dashboard escritorio](evidencias/capturas/escritorio_02_dashboard.jpg) | ![Dashboard móvil](evidencias/capturas/movil_02_dashboard.jpg) |
+
+### Estructura del repositorio
+
+```
+SolIntel_SistemasOperativos_G8/
+├── src/
+│   ├── frontend/        index.html, styles.css, app.js, logo.svg
+│   ├── backend/         servidor.py, seguridad.py, almacen.py
+│   ├── ia/              motor_ia.py, analizador.py (Fase II)
+│   ├── simulador/       simulador_iot.py, generador_datos.py (Fase II)
+│   └── fase2/           dashboard estático de la Fase II
+├── config/              solintel.json, systemd/, cron/, logrotate/, firewall/
+├── scripts/
+│   ├── linux/           instalar.sh, iniciar.sh, detener.sh, monitorear.sh, respaldo.sh, probar.sh
+│   └── windows/         iniciar.ps1, detener.ps1, monitorear.ps1, respaldo.ps1, tareas_programadas.ps1
+├── tests/               test_solintel.py (21 pruebas)
+├── docs/                documento_tecnico.md
+├── evidencias/          instalacion/, pruebas/, seguridad/, monitoreo/, respaldos/, capturas/, fase2/
+├── data/                datos simulados (los datos de usuarios se crean al ejecutar y no se versionan)
+├── Dockerfile, docker-compose.yml
+└── README.md
+```
+
+### Instalación y ejecución
+
+Requisito único: **Python 3.10 o superior** (solo librería estándar, sin `pip install`).
+
+**Opción 1 – Desarrollo (Windows, Linux o macOS)**
+```bash
+python src/backend/servidor.py --con-simulador
+# Abrir http://localhost:8080   ·   demo@solintel.co / Solintel2026
+```
+En Windows también: `powershell -ExecutionPolicy Bypass -File scripts\windows\iniciar.ps1`
+
+**Opción 2 – Servidor Linux (Ubuntu 22.04/24.04) como servicio**
+```bash
+sudo bash scripts/linux/instalar.sh
+systemctl status solintel-web solintel-simulador
+sudo ufw status verbose
+```
+El instalador crea el usuario de sistema `solintel` y el grupo `solintel-admin`, copia a `/opt/solintel`, aplica permisos (código 750, datos 700, usuarios 600), instala los servicios systemd, cron, logrotate y el firewall.
+
+**Opción 3 – Docker**
+```bash
+docker compose up -d
+```
+
+**Operación diaria**
+
+| Tarea | Linux | Windows |
+| :--- | :--- | :--- |
+| Iniciar / detener | `scripts/linux/iniciar.sh` / `detener.sh` (o `systemctl start/stop`) | `iniciar.ps1` / `detener.ps1` |
+| Monitorear | `scripts/linux/monitorear.sh` | `monitorear.ps1` |
+| Respaldar / restaurar | `respaldo.sh` / `respaldo.sh --restaurar <archivo>` | `respaldo.ps1` |
+| Probar | `scripts/linux/probar.sh` | `python -m unittest discover -s tests -v` |
+| Programar tareas | `config/cron/solintel` | `tareas_programadas.ps1` |
+
+### Configuración del sistema operativo
+
+| Componente | Configuración aplicada | Evidencia |
+| :--- | :--- | :--- |
+| Sistema operativo | Ubuntu 24.04.5 LTS (kernel 6.x), Python 3.13 | `evidencias/monitoreo/` |
+| Usuarios y grupos | `solintel` (sistema, sin shell), `solintel-admin` (equipo) | `evidencias/seguridad/seguridad_linux.txt` |
+| Permisos | `/opt/solintel` 750, `data` 700, `usuarios.json` 600, `logs` 2750, umask 027 | `evidencias/seguridad/seguridad_linux.txt` |
+| Procesos y servicios | Servidor (PID padre) + simulador (PID hijo), systemd con reinicio automático | `evidencias/monitoreo/`, `config/systemd/` |
+| Red | Puerto 8080/tcp, `/api/salud` | `evidencias/pruebas/pruebas_api.txt` |
+| Almacenamiento | JSON/CSV por hogar, respaldos `tar.gz` + SHA-256, rotación de 7 | `evidencias/respaldos/respaldo_linux.txt` |
+| Seguridad | UFW (22 y 8080), PBKDF2, bloqueo 429, CSP, endurecimiento systemd, auditoría | `evidencias/seguridad/seguridad_linux.txt` |
+| Monitoreo | CPU, memoria, disco, procesos, puertos, salud, auditoría | `evidencias/monitoreo/` |
+
+### Pruebas realizadas y resultados
+
+**21 de 21 pruebas automáticas aprobadas** (`evidencias/pruebas/pruebas_unitarias.txt`).
+
+| # | Prueba | Resultado esperado | Resultado obtenido |
+| :---: | :--- | :--- | :--- |
+| 1 | Registro, cuenta duplicada, login y logout | 201, 409, 200 y token inválido tras logout | Correcto |
+| 2 | 15 endpoints de la API con sesión | HTTP 200 en todos | Correcto |
+| 3 | Rutas protegidas sin token | HTTP 401 | Correcto |
+| 4 | 6 intentos de login con clave incorrecta | 5 × 401 y luego 429 (bloqueo 5 min) | Correcto |
+| 5 | Rendimiento del dashboard (RNF02) | Menos de 3 s | 0,17 s en la primera carga y 2–3 ms con caché |
+| 6 | Apagar/encender un dispositivo | Estado guardado y potencia actual 0 W | Correcto |
+| 7 | Simulador con dispositivo apagado / standby | 0 kWh / consumo de standby | Correcto |
+| 8 | Relleno de 5 horas faltantes del historial | Agrega exactamente 5 horas | Correcto |
+| 9 | 4 **procesos** incrementando un contador compartido 50 veces cada uno | 200 sin pérdidas | 200 |
+| 10 | 20 **hilos** cambiando dispositivos y leyendo el dashboard a la vez | Sin errores y archivo íntegro | Correcto |
+| 11 | Caché en memoria | Segunda lectura sale de la RAM | Correcto |
+| 12 | Usuario ajeno lee `usuarios.json` | *Permission denied* | Correcto |
+| 13 | *Path traversal* `/../../config/solintel.json` | No expone el archivo | Correcto |
+| 14 | Cabeceras de seguridad | CSP, X-Frame-Options, nosniff | Correcto |
+| 15 | Respaldo y verificación SHA-256 | `OK` | Correcto |
+| 16 | Interfaz en escritorio (1366 px) y móvil (390 px) | 11 pantallas sin errores de consola | Correcto (`evidencias/capturas/`) |
+
+### Resultados obtenidos
+
+- Plataforma web funcional con las 11 pantallas, adaptable a escritorio y celular, y aviso visible de datos simulados (RNF06).
+- Los 8 requerimientos funcionales (RF01–RF08) implementados.
+- Hogar demo: ≈ 86 kWh proyectados para el mes (≈ COP 77.000 a 900 COP/kWh); la IA detecta riesgo nocturno (+22 % en la franja de 6 p.m. a 11 p.m.), hábitos de iluminación prolongada y riesgo de superar la meta; propone 8 acciones con ahorro estimado de ≈ COP 12.000/mes.
+- Servicio con usuario sin privilegios: servidor ≈ 35 MB de RAM, simulador < 0,3 % de CPU, API entre 1 y 170 ms.
+
+### Limitaciones
+
+- Los datos son simulados; las cifras de ahorro son estimaciones del motor de reglas.
+- Las evidencias se generaron en una VM Ubuntu 24.04 sin systemd ni UFW activos (entorno de contenedor), por eso `instalacion_linux.txt` muestra esos pasos como omitidos. En un Ubuntu Server normal el mismo script los instala; se recomienda adjuntar la salida de `systemctl status` y `ufw status verbose` de la VM del equipo.
+- Sin HTTPS: para producción se recomienda un proxy inverso (Nginx + Let's Encrypt).
+
+### Conclusiones
+
+1. La concurrencia entre el servidor y el simulador obligó a usar exclusión mutua real entre procesos; la prueba con 4 procesos lo comprobó sin pérdida de datos.
+2. Ejecutar el servicio con un usuario sin privilegios, permisos mínimos, umask y endurecimiento de systemd limita el impacto de una falla.
+3. Los scripts de instalación, respaldo y monitoreo hacen el despliegue repetible y verificable en Linux y Windows.
+4. Con datos simulados se validó la idea completa (visualización, alertas, predicción y recomendaciones) sin infraestructura física.
+
+### Registro de avances
+
+El historial de commits documenta cada fase con el formato `tipo(módulo): descripción` (`feat`, `fix`, `test`, `docs`, `refactor`).
