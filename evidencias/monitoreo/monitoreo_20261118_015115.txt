@@ -1,0 +1,43 @@
+=== SolIntel - Monitoreo 2026-11-18 01:51:15 en vm ===
+
+--- Sistema operativo
+Linux 6.18.44-fc-v595 x86_64 GNU/Linux
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+
+--- Tiempo activo y carga
+ 01:51:15 up 13 min,  0 user,  load average: 0.02, 0.01, 0.00
+
+--- CPU
+Nucleos: 2
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st 
+MiB Mem :   8024.1 total,   7239.4 free,    485.0 used,    517.4 buff/cache     
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.   7539.0 avail Mem 
+
+--- Memoria
+               total        used        free      shared  buff/cache   available
+Mem:           7.8Gi       485Mi       7.1Gi        12Mi       517Mi       7.4Gi
+Swap:             0B          0B          0B
+
+--- Disco
+/dev/vda        252G   13G   30G  29% /
+2.7M	data
+56K	logs
+
+--- Procesos SolIntel (PID, PPID, %CPU, %MEM, hilos, tiempo, comando)
+ 1609     1  0.0  0.0    1       00:04 runuser -u solintel -- python3 src/backend/servidor.py --con-simulador
+ 1611  1609  1.4  0.2    1       00:04 python3 src/backend/servidor.py --con-simulador
+ 1612  1611  0.9  0.2    1       00:04 /usr/local/bin/python3 /opt/solintel/src/simulador/simulador_iot.py --intervalo 30
+
+--- Puertos en escucha
+ss/netstat no disponible
+
+--- Salud del servicio
+{"estado": "ok", "pid": 1611, "simulador": {"activo": true, "pid": 1612}}
+HTTP 200 en 0.001454s
+
+--- Auditoria (logs/solintel.log)
+Inicios de sesion correctos: 18
+Intentos fallidos:           20
+Bloqueos por fuerza bruta:   5
+Cambios de dispositivos:     48
+Errores:                     0

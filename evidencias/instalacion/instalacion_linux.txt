@@ -1,0 +1,30 @@
+
+==> 1. Paquetes del sistema
+Python 3.13.18
+
+==> 2. Usuarios y grupos
+uid=996(solintel) gid=995(solintel) groups=995(solintel)
+solintel-admin:x:30002:
+
+==> 3. Copia de archivos a /opt/solintel
+
+==> 4. Permisos (principio de minimo privilegio)
+drwxr-x--- 10 root     solintel       4096 Nov 18 01:50 /opt/solintel
+drwx------  4 solintel solintel       4096 Nov 18 01:50 /opt/solintel/data
+drwxr-s---  2 solintel solintel-admin 4096 Nov 18 01:50 /opt/solintel/logs
+drwxrwx---  2 solintel solintel-admin 4096 Nov 18 01:50 /opt/solintel/respaldos
+drwxr-x---  8 root     solintel       4096 Nov 18 01:49 /opt/solintel/src
+
+==> 5. Servicios systemd
+systemd no disponible en este entorno (contenedor); se omite.
+
+==> 6. Tareas programadas (cron) y rotacion de logs
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+15 2 * * * solintel /opt/solintel/scripts/linux/respaldo.sh >> /opt/solintel/logs/respaldo.log 2>&1
+*/30 * * * * solintel /opt/solintel/scripts/linux/monitorear.sh --silencioso >> /opt/solintel/logs/monitoreo.log 2>&1
+
+==> 7. Firewall
+ufw no instalado; se omite.
+
+==> Listo. Abre http://<IP-del-servidor>:8080  (demo@solintel.co / Solintel2026)

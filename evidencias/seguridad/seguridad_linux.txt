@@ -1,0 +1,73 @@
+=== Evidencias de seguridad - 2026-11-18 01:50:58 - Linux 6.18.44-fc-v595 ===
+
+--- Usuario y grupos del servicio
+uid=996(solintel) gid=995(solintel) groups=995(solintel)
+solintel:x:995:
+solintel-admin:x:30002:
+
+--- Procesos ejecutandose con usuario sin privilegios (no root)
+solintel  1307  1305    1 python3 src/backend/servidor.py --con-simulador
+solintel  1308  1307    1 /usr/local/bin/python3 /opt/solintel/src/simulador/simulador_iot.py --intervalo 30
+
+--- Permisos de directorios y archivos sensibles
+drwxr-x--- 10 root     solintel       4096 Nov 18 01:50 /opt/solintel
+drwxr-x---  6 root     solintel       4096 Nov 18 01:49 /opt/solintel/config
+drwx------  4 solintel solintel       4096 Nov 18 01:50 /opt/solintel/data
+drwxr-s---  2 solintel solintel-admin 4096 Nov 18 01:50 /opt/solintel/logs
+drwxrwx---  2 solintel solintel-admin 4096 Nov 18 01:50 /opt/solintel/respaldos
+drwxr-x---  8 root     solintel       4096 Nov 18 01:49 /opt/solintel/src
+-rw------- 1 solintel solintel 318 Nov 18 01:50 /opt/solintel/data/usuarios.json
+total 2516
+-rw-r--r-- 1 solintel solintel 2561779 Nov 18 01:50 consumo.csv
+-rw-r--r-- 1 solintel solintel    1121 Nov 18 01:50 dispositivos.json
+-rw-r--r-- 1 solintel solintel     266 Nov 18 01:50 hogar.json
+-rw-r--r-- 1 solintel solintel     264 Nov 18 01:50 lectura.json
+
+--- Usuario ajeno (tester) intentando leer datos
+cat: /opt/solintel/data/usuarios.json: Permission denied
+ls: cannot open directory '/opt/solintel': Permission denied
+
+--- Contrasenas almacenadas cifradas (PBKDF2-SHA256), fragmento
+demo@solintel.co pbkdf2_sha256$200000$fb8685b1d978b5d6086...
+
+--- Acceso a la API sin token
+{"error": "Sesión no válida o expirada."}  [HTTP 401]
+
+--- Fuerza bruta: 6 intentos con clave incorrecta (5 x 401 y luego 429 bloqueado)
+401 401 401 401 401 429 
+
+--- Intento de path traversal
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="v ...(devuelve la app, no el archivo)
+
+--- Cabeceras de seguridad HTTP
+Server: SolIntel/1.0 
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Referrer-Policy: no-referrer
+Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:
+
+--- Registro de auditoria (logs/solintel.log)
+2026-11-18 01:50:43,099 [1314:Thread-112 (process_request_thread)] WARNING AUDITORIA login_bloqueado correo=atacante@x.co ip=127.0.0.1
+2026-11-18 01:50:43,684 [1307:Thread-2 (process_request_thread)] INFO AUDITORIA login_ok correo=demo@solintel.co ip=127.0.0.1
+2026-11-18 01:50:43,917 [1307:Thread-10 (process_request_thread)] INFO AUDITORIA dispositivo uid=h8b59c84f05e4 id=televisor estado=apagada
+2026-11-18 01:50:43,927 [1307:Thread-11 (process_request_thread)] INFO AUDITORIA dispositivo uid=h8b59c84f05e4 id=televisor estado=activa
+2026-11-18 01:50:58,695 [1307:Thread-13 (process_request_thread)] INFO AUDITORIA login_fallido correo=atacante@prueba.co ip=127.0.0.1
+2026-11-18 01:50:58,701 [1307:Thread-14 (process_request_thread)] INFO AUDITORIA login_fallido correo=atacante@prueba.co ip=127.0.0.1
+2026-11-18 01:50:58,708 [1307:Thread-15 (process_request_thread)] INFO AUDITORIA login_fallido correo=atacante@prueba.co ip=127.0.0.1
+2026-11-18 01:50:58,714 [1307:Thread-16 (process_request_thread)] INFO AUDITORIA login_fallido correo=atacante@prueba.co ip=127.0.0.1
+2026-11-18 01:50:58,721 [1307:Thread-17 (process_request_thread)] INFO AUDITORIA login_fallido correo=atacante@prueba.co ip=127.0.0.1
+2026-11-18 01:50:58,727 [1307:Thread-18 (process_request_thread)] WARNING AUDITORIA login_bloqueado correo=atacante@prueba.co ip=127.0.0.1
+
+--- Endurecimiento del servicio systemd
+User=solintel
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/solintel/data /opt/solintel/logs
+UMask=0027
+MemoryMax=512M
+CPUQuota=50%

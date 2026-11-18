@@ -1,0 +1,28 @@
+=== Pruebas de humo API 2026-11-18 01:50:43 ===
+-- Salud
+{"estado": "ok", "pid": 1307, "simulador": {"activo": true, "pid": 1308}}
+-- Login demo
+token recibido: A46TDTer...
+-- Acceso sin token (debe ser 401)
+401
+-- GET /api/dashboard
+{"consumo_hoy_kwh": 3.0, "variacion_ayer_pct": 57.9, "hasta_hora": "00:59", "costo_hoy_cop": 2702, "mes_kwh": 43.46, "meta_kwh": 73.3, "meta_pct": 59.3, "costo_mes_cop": 39116, "proyeccion": {"pendiente_kwh_dia": -0.0284, "proximos_7_dias": [2.38, 2.35, 2.32, 2.29, 2.26, 2.23, 2.21], "proyeccion_mes_kwh": 72.05, "dias_restantes_mes": 12}, "factura_proyectada_cop": 64845, "ahorro_ia_cop": 11900, "tendencia_semanal": [{"etiqueta": "J", "fecha": "2026-11-12", "kwh": 1.99}, {"etiqueta": "V", "fecha": "2026-11-13", "kwh": 2.97}, {"etiqueta": "S", "fecha": "2026-11-14", "kwh": 3.47}, {"etiqueta": "D
+[HTTP 200 en 0.167584s]
+-- GET /api/consumo?periodo=semana
+{"periodo": "semana", "unidad": "kWh/día", "etiquetas": ["J", "V", "S", "D", "L", "M", "M"], "valores": [1.99, 2.966, 3.47, 2.238, 1.942, 2.954, 0.083], "total_kwh": 15.64, "pico": {"etiqueta": "S", "kwh": 3.47}, "promedio": 2.235, "rango_normal": [1.905, 3.598], "por_dispositivo": [{"id": "nevera", "kwh": 5.63, "pct": 36.0}, {"id": "iluminacion", "kwh": 2.48, "pct": 15.9}, {"id": "computador", "kwh": 2.05, "pct": 13.1}, {"id": "microondas", "kwh": 2.05, "pct": 13.1}, {"id": "televisor", "kwh": 1.58, "pct": 10.1}, {"id": "plancha", "kwh": 1.39, "pct": 8.9}, {"id": "cargadores", "kwh": 0.47, "
+[HTTP 200 en 0.002222s]
+-- GET /api/alertas
+{"alertas": [{"nivel": "medio", "titulo": "Dispositivo crítico", "mensaje": "Nevera y iluminacion concentran 100% del consumo de hoy."}, {"nivel": "medio", "titulo": "Hábito repetido", "mensaje": "La iluminación estuvo activa 4 horas seguidas anoche."}, {"nivel": "ok", "titulo": "Meta mensual", "mensaje": "Vas bien: la proyección (72.0 kWh) está por debajo de la meta (73.3 kWh)."}]}
+[HTTP 200 en 0.002153s]
+-- GET /api/recomendaciones
+{"recomendaciones": [{"id": "iluminacion", "titulo": "Limita la iluminación", "detalle": "Apaga luces en habitaciones vacías y cambia a bombillos LED.", "participacion_pct": 15.1, "ahorro_kwh_mes": 3.03, "ahorro_cop_mes": 2700}, {"id": "nevera", "titulo": "Revisa la nevera", "detalle": "Revisa los sellos de la puerta, ajusta la temperatura a 3–5 °C y no la abras seguido.", "participacion_pct": 35.2, "ahorro_kwh_mes": 2.84, "ahorro_cop_mes": 2600}, {"id": "cargadores", "titulo": "Apaga el standby nocturno", "detalle": "Desconecta cargadores, TV y computador cuando no se usen; usa una regle
+[HTTP 200 en 0.001437s]
+-- GET /api/reportes?tipo=mensual
+{"tipo": "mensual", "etiquetas": ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18"], "valores": [1.9, 1.88, 1.97, 2.53, 3.91, 2.13, 2.9, 2.84, 3.45, 2.44, 1.87, 1.99, 2.97, 3.47, 2.24, 1.94, 2.95, 0.08], "mes_actual_kwh": 43.46, "meta_kwh": 73.3, "factura_parcial_cop": 39116, "factura_proyectada_cop": 64845, "vs_mes_anterior_pct": -25.5, "por_dispositivo": [{"id": "nevera", "kwh": 28.36, "pct": 35.2}, {"id": "microondas", "kwh": 12.42, "pct": 15.4}, {"id": "iluminacion", "kwh": 12.13, "pct": 15.1}, {"id": "computador", "kwh": 10.98, "pc
+[HTTP 200 en 0.001983s]
+-- GET /api/sistema
+{"sistema_operativo": "Linux-6.18.44-fc-v595-x86_64-with-glibc2.39", "python": "3.13.18", "equipo": "vm", "pid": 1307, "ppid": 1305, "hilos_activos": 2, "uptime_seg": 9, "memoria_max_kb": 35776, "carga_promedio": [0.04, 0.01, 0.0], "disco": {"total_gb": 270.6, "libre_gb": 32.2, "uso_pct": 4.8}, "datos_mb": 2.77, "usuarios": 1, "sesiones_activas": 1, "cache_ia": {"aciertos": 4, "fallos": 1}, "simulador": {"activo": true, "pid": 1308}}
+[HTTP 200 en 0.003117s]
+-- Apagar TV (control simulado)
+{"dispositivos": [{"id": "nevera", "nombre": "Nevera", "ubicacion": "Cocina", "potencia_w": 150, "estado": "activa", "kwh_hoy": 0.91, "potencia_actual_w": 131}, {"id": "lavadora", "nombre": "Lavadora"
+

@@ -1,0 +1,29 @@
+Usuario demo creado: demo@solintel.co / Solintel2026
+test_10_registro_login_logout (test_solintel.PruebasFuncionales.test_10_registro_login_logout) ... ok
+test_11_endpoints_principales (test_solintel.PruebasFuncionales.test_11_endpoints_principales) ... ok
+test_12_dashboard_rendimiento (test_solintel.PruebasFuncionales.test_12_dashboard_rendimiento) ... ok
+test_13_control_dispositivo (test_solintel.PruebasFuncionales.test_13_control_dispositivo) ... ok
+test_14_configuracion_hogar (test_solintel.PruebasFuncionales.test_14_configuracion_hogar) ... ok
+test_15_plan_ahorro (test_solintel.PruebasFuncionales.test_15_plan_ahorro) ... ok
+test_30_regresion_lineal (test_solintel.PruebasIA.test_30_regresion_lineal) ... ok
+test_31_meta (test_solintel.PruebasIA.test_31_meta) ... ok
+test_20_simulador_respeta_estado (test_solintel.PruebasSO.test_20_simulador_respeta_estado) ... ok
+test_21_rellenar_horas_faltantes (test_solintel.PruebasSO.test_21_rellenar_horas_faltantes) ... ok
+test_22_exclusion_mutua_entre_procesos (test_solintel.PruebasSO.test_22_exclusion_mutua_entre_procesos) ... /usr/local/lib/python3.13/multiprocessing/popen_fork.py:73: DeprecationWarning: This process (pid=1314) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  self.pid = os.fork()
+ok
+test_23_concurrencia_hilos_api (test_solintel.PruebasSO.test_23_concurrencia_hilos_api) ... ok
+test_24_cache_en_memoria (test_solintel.PruebasSO.test_24_cache_en_memoria) ... ok
+test_25_monitoreo_sistema (test_solintel.PruebasSO.test_25_monitoreo_sistema) ... ok
+test_01_hash_contrasena (test_solintel.PruebasSeguridad.test_01_hash_contrasena) ... ok
+test_02_politica_contrasena (test_solintel.PruebasSeguridad.test_02_politica_contrasena) ... ok
+test_03_rutas_protegidas_sin_token (test_solintel.PruebasSeguridad.test_03_rutas_protegidas_sin_token) ... ok
+test_04_bloqueo_fuerza_bruta (test_solintel.PruebasSeguridad.test_04_bloqueo_fuerza_bruta) ... ok
+test_05_cabeceras_seguridad (test_solintel.PruebasSeguridad.test_05_cabeceras_seguridad) ... ok
+test_06_path_traversal (test_solintel.PruebasSeguridad.test_06_path_traversal) ... ok
+test_07_permisos_archivo_usuarios (test_solintel.PruebasSeguridad.test_07_permisos_archivo_usuarios) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 2.479s
+
+OK
