@@ -166,6 +166,8 @@ def main():
     p.add_argument("--intervalo", type=int, default=int(os.environ.get("SOLINTEL_INTERVALO", 30)))
     p.add_argument("--una-vez", action="store_true")
     a = p.parse_args()
+    if hasattr(os, "umask"):
+        os.umask(0o027)  # archivos nuevos: rw para el dueno, r para el grupo, nada para otros
 
     os.makedirs(os.path.join(RAIZ, "logs"), exist_ok=True)
     logging.basicConfig(filename=os.path.join(RAIZ, "logs", "simulador.log"), level=logging.INFO,

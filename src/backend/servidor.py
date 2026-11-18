@@ -401,6 +401,8 @@ def main():
     p.add_argument("--puerto", type=int, default=int(os.environ.get("SOLINTEL_PUERTO", CONFIG.get("puerto", 8080))))
     p.add_argument("--con-simulador", action="store_true", help="Inicia el simulador IoT como proceso hijo")
     a = p.parse_args()
+    if hasattr(os, "umask"):
+        os.umask(0o027)  # archivos nuevos: rw para el dueno, r para el grupo, nada para otros
     srv = crear_servidor(a.host, a.puerto)
     hijo = None
     if a.con_simulador and not estado_simulador()["activo"]:
