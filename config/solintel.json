@@ -1,0 +1,10 @@
+{
+  "host": "0.0.0.0",
+  "puerto": 8080,
+  "tarifa_cop_kwh": 900,
+  "dias_historial": 365,
+  "sesion_horas": 8,
+  "intervalo_simulador_seg": 30,
+  "max_cuerpo_bytes": 65536,
+  "usuario_demo": {"correo": "demo@solintel.co", "clave": "Solintel2026", "nombre": "Hogar Prieto"}
+}

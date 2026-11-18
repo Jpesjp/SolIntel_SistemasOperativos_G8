@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+logs/
+data/usuarios.json
+data/hogares/
+data/locks/
+data/simulador.pid
+respaldos/
+*.tmp
