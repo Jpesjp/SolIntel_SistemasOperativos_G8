@@ -1,0 +1,27 @@
+# /etc/systemd/system/solintel-web.service
+[Unit]
+Description=SolIntel - servidor web y API (datos simulados)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=solintel
+Group=solintel
+WorkingDirectory=/opt/solintel
+Environment=SOLINTEL_PUERTO=8080
+ExecStart=/usr/bin/python3 /opt/solintel/src/backend/servidor.py
+Restart=on-failure
+RestartSec=5
+# Endurecimiento del servicio
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/solintel/data /opt/solintel/logs
+UMask=0027
+MemoryMax=512M
+CPUQuota=50%
+
+[Install]
+WantedBy=multi-user.target

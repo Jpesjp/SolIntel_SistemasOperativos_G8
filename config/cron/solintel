@@ -1,0 +1,9 @@
+# /etc/cron.d/solintel - tareas programadas de SolIntel
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+# Respaldo diario de los datos a las 2:15 a.m. (conserva los ultimos 7)
+15 2 * * * solintel /opt/solintel/scripts/linux/respaldo.sh >> /opt/solintel/logs/respaldo.log 2>&1
+# Monitoreo cada 30 minutos (CPU, memoria, disco, puertos, salud del servicio)
+*/30 * * * * solintel /opt/solintel/scripts/linux/monitorear.sh --silencioso >> /opt/solintel/logs/monitoreo.log 2>&1
+# Alternativa al servicio del simulador: completar horas faltantes cada hora
+# 5 * * * * solintel /usr/bin/python3 /opt/solintel/src/simulador/simulador_iot.py --una-vez

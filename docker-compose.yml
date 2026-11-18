@@ -1,0 +1,9 @@
+services:
+  solintel:
+    build: .
+    ports: ["8080:8080"]
+    volumes: ["solintel_datos:/app/data"]
+    restart: unless-stopped
+    mem_limit: 512m
+volumes:
+  solintel_datos:

@@ -1,0 +1,9 @@
+/opt/solintel/logs/*.log {
+    weekly
+    rotate 4
+    compress
+    missingok
+    notifempty
+    su solintel solintel
+    create 0640 solintel solintel
+}

@@ -1,0 +1,25 @@
+# /etc/systemd/system/solintel-simulador.service
+[Unit]
+Description=SolIntel - simulador IoT (proceso independiente, datos simulados)
+After=solintel-web.service
+
+[Service]
+Type=simple
+User=solintel
+Group=solintel
+WorkingDirectory=/opt/solintel
+ExecStart=/usr/bin/python3 /opt/solintel/src/simulador/simulador_iot.py --intervalo 30
+Restart=on-failure
+RestartSec=5
+# Endurecimiento del servicio
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/solintel/data /opt/solintel/logs
+UMask=0027
+MemoryMax=256M
+CPUQuota=20%
+
+[Install]
+WantedBy=multi-user.target
