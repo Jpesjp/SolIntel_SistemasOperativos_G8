@@ -1,9 +1,9 @@
 """
 Sollntel - Generador de la interfaz web (dashboard) a partir de los datos simulados.
-Lee el CSV y crea web/index.html con graficos de consumo.
+Lee el CSV y crea src/fase2/web/index.html con graficos de consumo.
 
 Uso:
-    python src/generar_web.py --entrada data/consumo_simulado.csv --salida web/index.html
+    python src/generar_web.py --entrada data/consumo_simulado.csv --salida src/fase2/web/index.html
 """
 import argparse
 import csv
@@ -169,6 +169,6 @@ def generar(entrada, salida):
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description="Generador de dashboard web - Sollntel")
     p.add_argument("--entrada", default="data/consumo_simulado.csv")
-    p.add_argument("--salida", default="web/index.html")
+    p.add_argument("--salida", default="src/fase2/web/index.html")
     a = p.parse_args()
     generar(a.entrada, a.salida)
